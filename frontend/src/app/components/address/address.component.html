@@ -1,0 +1,127 @@
+<head>
+    <title>Address</title>
+    <link data-require="fontawesome@*" data-semver="4.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+</head>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+    <a class="navbar-brand brand" href="dashboard/{{username}}">All Products</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            
+        </ul>
+        <ul class="navbar-nav mr-0">
+                <!-- <li style="float:right; margin: 3px;"> <input type="text" style="padding: 3px" placeholder="search here"></li> -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="/order_history/{{username}}">Order History</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="wishlist.html">Wish List</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="/cart/{{username}}">Cart</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/login">Logout</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<br>   
+
+<div class="container">
+    <h4 style="font:30px/1.2 'Merienda One', Helvetica, sans-serif; text-align: center">Available address</h4>
+
+    <div class="container justify-content-center" style="background-color: snow; padding: 2%; border-radius: 20px">
+        
+        <div *ngIf="addresses[0].house_no; else add_address" class="m-auto">
+
+        <div *ngFor="let address of addresses" >
+            
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"> {{address.house_no}}, {{address.street_name}}, {{address.landmark}}, {{address.locality}}, {{address.city}} <br> {{address.state}}, {{address.pin_code}} </li>   
+                        </ul>
+                    </div>
+                </div>
+            </div><br>
+        </div>
+            <div class="text-center"> 
+                <button (click)="change()" class="btn btn-info" >Change Address</button>
+                &nbsp;
+                <a href="/confirmation/{{username}}"><button class="btn btn-info" >Proceed</button></a>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+        <ng-template #add_address>
+            <div class="row justify-content-center">
+                <form  class="form-class">
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">House No.*</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="house_no" name="house_no"><br>
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">Street Name*</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="street" name="street" ><br>
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">Landmark</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="landmark" name="landmark" ><br>
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">Locality</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="locality" name="locality" ><br>
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">City*</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="city" name="city" ><br>
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">State*</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="state" name="state" ><br>
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-prepend" style="width: 34%;">
+                            <span class="input-group-text" style="width: 100%;">Pin Code*</span>
+                        </div>
+                        <input type="number" class="form-control" [(ngModel)]="pin_code" name="pin_code" ><br>
+                    </div><br>
+                  </form>
+                </div>
+            <div class="text-center"> 
+                <button (click)="add()" class="btn btn-info">Add Address</button>
+            </div>
+            
+        </ng-template>
+
+    </div>
+</div>
+<br>

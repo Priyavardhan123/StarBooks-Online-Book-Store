@@ -1,0 +1,76 @@
+<head>
+    <title>Cart</title>
+    <link data-require="fontawesome@*" data-semver="4.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+</head>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+    <a class="navbar-brand brand" href="dashboard/{{username}}">All Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            
+        </ul>
+        <ul class="navbar-nav mr-0">
+                <!-- <li style="float:right; margin: 3px;"> <input type="text" style="padding: 3px" placeholder="search here"></li> -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="/order_history/{{username}}">Order History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/cart/{{username}}">Cart</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/login">Logout</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<br>   
+<div class="container">
+    <h4 style="font:30px/1.2 'Merienda One', Helvetica, sans-serif; text-align: center">Cart</h4>
+    <div class="container justify-content-center" style="background-color: snow; padding: 2%; border-radius: 20px">
+        
+        <div *ngIf="!cart || !orders" class="m-auto">
+            <h6 class="text-center display-4 mt-5">
+                <i class="fa fa-spinner fa-pulse"></i>
+            </h6>
+        </div>
+
+        <div *ngFor="let book of cart" >
+            <div *ngFor="let order of orders" >
+                <div *ngIf="book._id == order.book_id" class="m-auto">
+
+                    <div class="row">
+                        <div class="col-4">
+                            <img class="img-thumbnail" src="{{book.image}}">
+                        </div>
+                        <div class="col-8 ">
+                            <div class="card">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Name : {{book.name}}</li>
+                                    <li class="list-group-item">Author : {{book.author}} </li>
+                                    <li class="list-group-item">Ordered from : {{book.retailer}} </li>
+                                    <li class="list-group-item">Quantity : {{order.quantity}}</li>
+                                    <li class="list-group-item">Price : {{order.price}} Rs </li>
+                                    <li class="list-group-item">Date : {{order.date.slice(0,10)}} </li>
+                                </ul>
+
+                            </div>
+                            <button (click)="remove_from_cart(order._id)" class="btn btn-danger mt-2 ml-2">Remove</button>
+
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cart.length>0;" class="text-center"> 
+            <a href="/address/{{username}}"><button class="btn btn-info" >Add Address</button></a>
+        </div>
+    
+    </div><br>
+</div>

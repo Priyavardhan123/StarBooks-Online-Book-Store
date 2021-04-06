@@ -1,0 +1,327 @@
+<head>
+    <title>DashBoard</title>
+</head>
+
+
+<!-- customer DashBoard -->
+<div *ngIf="user_details[0].user_type == 'customer'" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+        <a class="navbar-brand active brand" href="dashboard/{{username}}">All books</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href='dashboard/{{username}}#Poetry'>Poetry</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="dashboard/{{username}}#fiction">Fiction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard/{{username}}#nonfiction_books">Non-Fiction</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-0">
+                <li style="float:right; margin: 3px;"> 
+                    <input type="text" class="form-control" style="padding: 3px" placeholder="Search Here..." [(ngModel)]="query">
+                </li>
+    
+                <li class="nav-item">
+                    <a class="nav-link" href="/order_history/{{username}}">Order History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart/{{username}}">Cart</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/login">Logout</a>
+                </li>
+            </ul>
+    
+        </div>
+    </nav>
+    <br>
+    
+    <div class="container">
+        <h4 style="font:30px/1.2 'Merienda One', Helvetica, sans-serif;">Welcome {{username}}</h4>
+        <div class="container"  style="background-color: snow ; border-radius: 20px"><br>
+            <h4 style="text-align: center" id="Poetry">Poetry</h4>
+            <div class="card-group" style="border-radius: 20px">
+                <div *ngIf="!books" class="m-auto"> 
+                    <h6 class="text-center display-4 mt-5">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </h6>
+                </div>
+                <div *ngIf="poetry_books.length==0 && books" class="m-auto">
+                    <h6 class="text-center mt-5">
+                        Book not found
+                    </h6>
+                </div>
+                
+                <div *ngFor="let book of poetry_books"  class="col-3" >
+                    <div *ngIf="book.name.toLowerCase().includes(query.toLowerCase()) ||
+                                book.author.toLowerCase().includes(query.toLowerCase()) ||
+                                book.retailer.toLowerCase().includes(query.toLowerCase()) ||
+                                book.category.toLowerCase().includes(query.toLowerCase()) 
+                            " >
+                    
+                    <div  class="card" style="margin: 1% ; border-radius: 20px;">
+                        <img class="card-img-top img-thumbnail" [src]="book.image" style="border-radius: 20px; width: fit-content;" [alt]="book.image">
+                        <div class="card-body">
+                            <h3 class="card-title">{{book.name}}</h3>
+                                <p class="card-text">
+                                Author : {{book.author}} <br>
+                                Retailer : {{book.retailer}} <br>
+                                Contact : {{book.contact}} <br>
+                                Price : {{book.price}} Rs
+                            </p>
+                            <div *ngIf="book.is_available" >Quantity : <input type="number" id="quantity" style="width: 25%;" [(ngModel)]="quantity"> </div>
+    
+                        </div>
+                        <div class="card-footer">
+                            <div *ngIf="book.is_available">
+                                <small class="text-success">Available </small><br>
+                                <button (click)="add_to_cart(book._id,book.price)" class="btn btn-info btn-sm">Add to cart</button> &nbsp;
+                                <a href="/cart/{{username}}"><button (click)="add_to_cart(book._id,book.price)" class="btn btn-info btn-sm">Buy Now</button></a>
+                            </div>
+                            <small *ngIf="!book.is_available" class="text-danger"> Not Available </small><br>
+    
+                        </div>
+                    </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    <br>
+        <div class="container"  style="background-color: snow ; border-radius: 20px"><br>
+            <h4 style="text-align: center" id="fiction">Fiction</h4>
+            <div class="card-group" style="border-radius: 20px">
+                <div *ngIf="!books" class="m-auto">
+                    <h6 class="text-center display-4 mt-5">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </h6>
+                </div>
+                <div *ngIf="fiction_books.length==0 && books" class="m-auto">
+                    <h6 class="text-center mt-5">
+                        Book not found
+                    </h6>
+                </div>
+                
+                
+                <div *ngFor="let book of fiction_books"  class="col-3" >
+                    <div *ngIf="book.name.toLowerCase().includes(query.toLowerCase()) ||
+                                book.author.toLowerCase().includes(query.toLowerCase()) ||
+                                book.retailer.toLowerCase().includes(query.toLowerCase()) ||
+                                book.category.toLowerCase().includes(query.toLowerCase()) 
+                            " >
+                    
+                    <div  class="card" style="margin: 1% ; border-radius: 20px;">
+                        <img class="card-img-top img-thumbnail" [src]="book.image" style="border-radius: 20px; width: fit-content;" [alt]="book.image">
+                        <div class="card-body">
+                            <h3 class="card-title">{{book.name}}</h3>
+                                <p class="card-text">
+                                Author : {{book.author}} <br>
+                                Retailer : {{book.retailer}} <br>
+                                Contact : {{book.contact}} <br>
+                                Price : {{book.price}} Rs  
+                            </p>
+                            <div *ngIf="book.is_available" >Quantity : <input type="number" id="quantity" style="width: 25%;" [(ngModel)]="quantity"> </div>
+    
+                        </div>
+                        <div class="card-footer">
+                            <div *ngIf="book.is_available">
+                                <small class="text-success">Available </small><br>
+                                <button (click)="add_to_cart(book._id,book.price)" class="btn btn-info btn-sm">Add to cart</button> &nbsp;
+                                <a href="/cart/{{username}}"><button (click)="add_to_cart(book._id,book.price)" class="btn btn-info btn-sm">Buy Now</button></a>
+                            </div>
+                            <small *ngIf="!book.is_available" class="text-danger"> Not Available </small><br>
+    
+                        </div>
+                    </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container"  style="background-color: snow ; border-radius: 20px"><br>
+            <h4 style="text-align: center" id="nonfiction_books">Non-Fiction</h4>
+            <div class="card-group" style="border-radius: 20px">
+                <div *ngIf="!books" class="m-auto">
+                    <h6 class="text-center display-4 mt-5">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </h6>
+                </div>
+    
+                <div *ngIf="nonfiction_books.length==0 && books" class="m-auto">
+                    <h6 class="text-center mt-5">
+                        Book not found
+                    </h6>
+                </div>
+                
+                <div *ngFor="let book of nonfiction_books"  class="col-3" >
+                    <div *ngIf="book.name.toLowerCase().includes(query.toLowerCase()) ||
+                                book.author.toLowerCase().includes(query.toLowerCase()) ||
+                                book.retailer.toLowerCase().includes(query.toLowerCase()) ||
+                                book.category.toLowerCase().includes(query.toLowerCase()) 
+                            " >
+                    
+                    <div class="card" style="margin: 1% ; border-radius: 20px;">
+                        <img class="card-img-top img-thumbnail" [src]="book.image" style="border-radius: 20px; width: fit-content;" [alt]="book.image">
+                        <div class="card-body">
+                            <h3 class="card-title">{{book.name}}</h3>
+                                <p class="card-text">
+                                Author : {{book.author}} <br>
+                                Retailer : {{book.retailer}} <br>
+                                Contact : {{book.contact}} <br>
+                                Price : {{book.price}} Rs
+                            </p>
+                            <div *ngIf="book.is_available" >Quantity : <input type="number" id="quantity" style="width: 25%;" [(ngModel)]="quantity"> </div>
+    
+                        </div>
+                        <div class="card-footer">
+                            <div *ngIf="book.is_available">
+                                <small class="text-success">Available </small><br>
+                                <button (click)="add_to_cart(book._id,book.price)" class="btn btn-info btn-sm">Add to cart</button> &nbsp;
+                                <a href="/cart/{{username}}"><button (click)="add_to_cart(book._id,book.price)" class="btn btn-info btn-sm">Buy Now</button></a>
+                            </div>
+                            <small *ngIf="!book.is_available" class="text-danger"> Not Available </small><br>
+    
+                        </div>
+                    </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    <br>
+    </div>
+
+
+
+<!-- retailer Dashboard -->
+<div *ngIf="user_details[0].user_type == 'retailer'" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+        <a class="navbar-brand active brand" href="dashboard/{{username}}">My books</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                
+            </ul>
+            <ul class="navbar-nav mr-0">
+                    <!-- <li style="float:right; margin: 3px;"> <input type="text" style="padding: 3px" placeholder="search here"></li> -->
+    
+                
+                <li class="nav-item ">
+                    <a class="nav-link" href="/login">Logout</a>
+                </li>
+            </ul>
+    
+        </div>
+    </nav>
+    <br>
+    
+    <div class="container">
+        <h4 style="font:30px/1.2 'Merienda One', Helvetica, sans-serif;">Welcome {{username}}</h4>
+    
+        <div class="container justify-content-center"  style="background-color: snow ; border-radius: 20px"><br>
+            <div class="card-group" style="border-radius: 20px">
+                <div *ngIf="!retailer_books || !user_details" class="m-auto">
+                    <h6 class="text-center display-4 mt-5">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </h6>
+                </div>
+                <div *ngIf="!retailer_books" class="m-auto">
+                    <h6 class="text-center mt-5">
+                        Book not found
+                    </h6>
+                </div>
+                
+                <div *ngFor="let book of retailer_books"  class="col-3" >
+                        <div  class="card" style="margin: 1% ; border-radius: 20px;">
+                            <img class="card-img-top img-thumbnail" [src]="book.image" style="border-radius: 20px; width: fit-content;" [alt]="book.image">
+                            <div class="card-body">
+                                <h3 class="card-title">{{book.name}}</h3>
+                                <p class="card-text">
+                                    Author : {{book.author}} <br>
+                                    Category : {{book.category}} <br>
+                                    Contact : {{book.contact}} <br>
+                                    Price : {{book.price}} Rs  <br>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <small *ngIf="book.is_available" class="text-success">Available </small>
+                                <small *ngIf="!book.is_available" class="text-danger"> Not Available </small><br>
+                                <button (click)="remove_book(book._id)" class="btn btn-danger btn-sm">Remove </button> &nbsp;
+                            </div>
+                        </div>
+                    <br>
+                </div>
+
+                
+            </div>
+
+            <div class="text-center"> 
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bookModal">
+                    Add book
+                </button><br><br>          
+            </div>
+            <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Add book</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form  class="form-class">
+                            <select name="category" id="category" class="form-control" [(ngModel)]="category">
+                                <option value="">Select Category</option>
+                                <option value="Poetry">Poetry</option>
+                                <option value="Fiction">Fiction</option>
+                                <option value="nonFiction">Non-Fiction</option>
+                            </select><br>
+                            <input type="text" class="form-control" name="book_name" placeholder="Book Name" [(ngModel)]="book_name"><br>
+                            <input type="text" class="form-control" name="author" placeholder="Author" [(ngModel)]="author"><br>
+                            <input type="text" class="form-control" name="price" placeholder="Price" [(ngModel)]="price"><br>
+                            
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="Available" id="defaultCheck1" [(ngModel)]="is_available">
+                                <label class="form-check-label" for="defaultCheck1">
+                                  Is Available
+                                </label>
+                              </div>
+                              <br>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text upload">Upload Image</span>
+                                </div>
+                                <input type="file" class="form-control" name="image" placeholder="Upload image" [(ngModel)]="image" observeFiles><br>
+
+                            </div>
+                            
+                          </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button type="button" (click)="add_book()" class="btn btn-info">Add book</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    <br>
+    
+    </div>
+    <br>
+    </div>

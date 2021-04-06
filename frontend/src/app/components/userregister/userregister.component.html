@@ -1,0 +1,65 @@
+<head>
+    <title>Register</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav mr-0">
+            <li class="nav-item ">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<div class="row justify-content-center" style="overflow-x: hidden; text-align: center; ">
+    <div class="col-md-7">
+        <img src="assets/images/books2.jpg" height="100%" width="100%" style="z-index: -5; position: relative;">
+    </div>
+    <div class="col-md-5">
+                <div><br>
+                <u><h3>Register</h3></u> <br>
+                <form class="form-class">
+                    <label for="user_type">Register as</label> : 
+                    <select name="loginas" id="user_type" [(ngModel)]="user_type">
+                        <option value="">--select--</option>
+                        <option value="customer">Customer</option>
+                        <option value="retailer">Retailer</option>
+                    </select><br><br>
+
+                    <label for="name">Name</label> : &emsp;&emsp;
+                    <input type="text" name="name" id="name" [(ngModel)]="name"><br><br>
+                    
+                    <label for="username">Username</label> : &nbsp;
+                    <input type="text" name="username" id="username" [(ngModel)]="username"><br><br>
+
+                    <label for="pass">Password</label> : &nbsp;
+                    <input type="password" name="pass" id="pass" [(ngModel)]="pass"> <br><br>
+
+                    <label for="con_pass">Confirm Password</label> : &nbsp;
+                    <input type="password" name="con_pass" id="con_pass" [(ngModel)]="con_pass"> <br><br>
+                    
+                    <label for="email">E-mail</label> : &emsp;&emsp;
+                    <input type="email" name="email" id="email" [(ngModel)]="email"> <br><br>
+                    
+                    <label for="contact">Contact No.</label> : 
+                    <input type="number" name="contact" id="contact" [(ngModel)]="contact"> <br><br>
+
+                    <button type="submit" (click)="onSubmit()" class="btn btn-info">Register</button>
+                </form>
+                <br>
+                Already have an account? <a href="/login">Login Here</a><br><br>
+                </div>
+        </div>
+</div>

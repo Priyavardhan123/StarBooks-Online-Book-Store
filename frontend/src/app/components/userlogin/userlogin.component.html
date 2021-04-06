@@ -1,0 +1,56 @@
+<head>
+    <title>Login</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav mr-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<div class="row justify-content-center" style="overflow-x: hidden">
+    <div class="col-md-7">
+        <img src="assets/images/books1.jpg" height="100%" width="100%" style="z-index: -5; position: relative;">
+    </div>
+    <div class="col-md-5 align-self-center" style="text-align: center;">
+            <div><br><br>
+            <u><h3>Login Here</h3></u> <br>
+            
+            <form class="form-class">
+                <label for="user_type">Login as</label> : 
+                <select name="loginas" id="user_type" [(ngModel)]="user_type">
+                    <option value="">--select--</option>
+                    <option value="customer">Customer</option>
+                    <option value="retailer">Retailer</option>
+                    <option value="admin">Administrator</option>
+                </select><br><br>
+
+                <label for="username">Username</label> : 
+                <input type="text" name="username" id="username" [(ngModel)]="username"><br><br>
+
+                <label for="pass">Password</label> : 
+                <input type="password" name="pass" id="pass" [(ngModel)]="password"> <br><br>
+
+                <button type="submit" class="btn btn-info" (click)="login()">Login</button>
+            </form>
+
+            <br>
+            Don't have an account? <a href="/register">SignUp Here</a>
+            </div>
+    </div>
+</div>

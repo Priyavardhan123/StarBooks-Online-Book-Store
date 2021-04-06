@@ -1,0 +1,102 @@
+<head>
+    <title>Order Confirmation</title>
+    <link data-require="fontawesome@*" data-semver="4.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+</head>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="margin-top: -1%">
+    <a class="navbar-brand brand" href="dashboard/{{username}}">All Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            
+        </ul>
+        <ul class="navbar-nav mr-0">
+                <!-- <li style="float:right; margin: 3px;"> <input type="text" style="padding: 3px" placeholder="search here"></li> -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="history.html">Order History</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="wishlist.html">Wish List</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="/cart/{{username}}">Cart</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/login">Logout</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<br>   
+<div class="container">
+    <h4 style="font:30px/1.2 'Merienda One', Helvetica, sans-serif; text-align: center">Order Confirmation</h4>
+    <div class="container" style="background-color: snow; border-radius: 20px; padding: 2%">
+
+        <div *ngIf="!books || !total_price || !addresses" class="m-auto">
+            <h6 class="text-center display-4 mt-5">
+                <i class="fa fa-spinner fa-pulse"></i>
+            </h6>
+        </div>
+
+
+        <div class="card m-3">
+            <h5 class="card-header"> Total Amount : {{total_price}} Rs</h5>
+        </div>
+        <br>
+        <h5><b>Order Summary</b></h5>
+        <div *ngFor="let book of books" >
+            <div *ngFor="let order of orders" >
+                <div *ngIf="book._id == order.book_id" class="m-auto">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card m-3">
+                                <h5 class="card-header">{{book.name}}</h5>
+                                <div class="card-body" style="vertical-align: middle;">
+                                    <div class="col-4 float-right">
+                                        <img class="img-thumbnail" src="{{book.image}}">
+                                    </div>                                    
+                                    <h5 class="card-title">Author : {{book.author}} </h5>
+                                    <h5 class="card-title">Ordered From : {{book.retailer}} </h5>
+                                    <h5 class="card-title">Quantity : {{order.quantity}} </h5>
+                                    <h5 class="card-title">Price : {{order.price}} Rs</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div *ngFor="let address of addresses" >
+            <div class="card m-3">
+                <h5 class="card-header"> Deliver to :</h5>
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"> {{address.house_no}}, {{address.street_name}}, {{address.landmark}}, {{address.locality}}, {{address.city}} <br> {{address.state}}, {{address.pin_code}} </li>   
+                        </ul>
+                    </div>
+                </div>
+            </div><br>
+            </div>
+        </div>
+
+        <div class="align-self-center" style="text-align: center;">
+            <button type="button" class="btn btn-info" (click)="place_order()">Place Order</button>
+
+        </div>
+
+
+    </div>
+</div>
+<br>
